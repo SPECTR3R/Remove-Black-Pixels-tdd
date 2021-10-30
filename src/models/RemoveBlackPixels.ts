@@ -49,14 +49,6 @@ export class RemoveBlackPixels {
       }
     }
 
-    // const regionSize = this.regionsData[this.currentRegion]?.regionSize
-    // const isConnectedToBorder = this.regionsData[this.currentRegion]?.isConnectedToBorder
-
-    // this.regionsData[this.currentRegion].regionSize = regionSize ? regionSize + 1 : 1
-    // this.regionsData[this.currentRegion].isConnectedToBorder = isConnectedToBorder
-    //   ? true
-    //   : row === this.inputMatrix.length || this.inputMatrix[0].length === col
-
     const offsets: number[] = [-1, 0, +1]
     let rOffset: number, cOffset: number
 
@@ -89,7 +81,7 @@ export class RemoveBlackPixels {
     }
   }
 
-  getRegionMatrix(): { regionsMatrix: number[][]; regionsData: IRegionData } {
+  groupBlackPixels(): { regionsMatrix: number[][]; regionsData: IRegionData } {
     for (let row = 0; row < this.inputMatrix.length; row++) {
       for (let col = 0; col < this.inputMatrix[0].length; col++) {
         if (this.inputMatrix[row][col] === 1 && !this.regionMatrix[row][col]) {
