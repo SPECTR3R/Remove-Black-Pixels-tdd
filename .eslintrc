@@ -15,7 +15,9 @@
     "guard-for-in": "off",
     "global-require": "off",
     "no-nested-ternary": "off",
-    "prefer-promise-reject-errors": "off"
+    "prefer-promise-reject-errors": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/member-delimiter-style": "off"
   },
   "env": {
     "browser": true,
