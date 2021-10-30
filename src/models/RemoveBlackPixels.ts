@@ -7,13 +7,13 @@ interface IRegionData {
 export class RemoveBlackPixels {
   regionMatrix: number[][]
   inputMatrix: number[][]
-  regionData: IRegionData
+  regionsData: IRegionData
   currentRegion = 1
 
   constructor(matrix: number[][]) {
     this.regionMatrix = this.createEmptyMatrix(matrix.length, matrix[0].length)
     this.inputMatrix = matrix
-    this.regionData = {}
+    this.regionsData = {}
   }
 
   private createEmptyMatrix(n: number, m: number): number[][] {
@@ -37,23 +37,23 @@ export class RemoveBlackPixels {
     // mark this vertex as visited and visit all its neighbors in depth first manner
     this.regionMatrix[row][col] = this.currentRegion
 
-    if (!this.regionData[this.currentRegion]) {
-      this.regionData[this.currentRegion] = {
+    if (!this.regionsData[this.currentRegion]) {
+      this.regionsData[this.currentRegion] = {
         regionSize: 1,
         isConnectedToBorder: row === 0 || row === matrix.length - 1 || col === 0 || col === matrix[0].length - 1
       }
     } else {
-      this.regionData[this.currentRegion].regionSize++
+      this.regionsData[this.currentRegion].regionSize++
       if (row === 0 || row === matrix.length - 1 || col === 0 || col === matrix[0].length - 1) {
-        this.regionData[this.currentRegion].isConnectedToBorder = true
+        this.regionsData[this.currentRegion].isConnectedToBorder = true
       }
     }
 
-    // const regionSize = this.regionData[this.currentRegion]?.regionSize
-    // const isConnectedToBorder = this.regionData[this.currentRegion]?.isConnectedToBorder
+    // const regionSize = this.regionsData[this.currentRegion]?.regionSize
+    // const isConnectedToBorder = this.regionsData[this.currentRegion]?.isConnectedToBorder
 
-    // this.regionData[this.currentRegion].regionSize = regionSize ? regionSize + 1 : 1
-    // this.regionData[this.currentRegion].isConnectedToBorder = isConnectedToBorder
+    // this.regionsData[this.currentRegion].regionSize = regionSize ? regionSize + 1 : 1
+    // this.regionsData[this.currentRegion].isConnectedToBorder = isConnectedToBorder
     //   ? true
     //   : row === this.inputMatrix.length || this.inputMatrix[0].length === col
 
@@ -89,7 +89,7 @@ export class RemoveBlackPixels {
     }
   }
 
-  getRegionMatrix(): { regionsMatrix: number[][]; regionData: IRegionData } {
+  getRegionMatrix(): { regionsMatrix: number[][]; regionsData: IRegionData } {
     for (let row = 0; row < this.inputMatrix.length; row++) {
       for (let col = 0; col < this.inputMatrix[0].length; col++) {
         if (this.inputMatrix[row][col] === 1 && !this.regionMatrix[row][col]) {
@@ -99,6 +99,6 @@ export class RemoveBlackPixels {
       }
     }
 
-    return { regionsMatrix: this.regionMatrix, regionData: this.regionData }
+    return { regionsMatrix: this.regionMatrix, regionsData: this.regionsData }
   }
 }
